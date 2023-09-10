@@ -1,5 +1,6 @@
 import { fail, redirect } from "@sveltejs/kit";
 import {db} from "$lib/server"
+import {hordeClient, type UserDetails} from "$lib"
 
 export const actions = {
   updateSettings: async ({request, locals}) => {
@@ -9,13 +10,9 @@ export const actions = {
     if (!newHordeToken || typeof newHordeToken !== 'string') {
       throw redirect(302, '/settings');
     }
-
-    const hordeClient = getHordeClient(newHordeToken);
-
+    let hordeUser: UserDetails | undefined = undefined;
     try {
-      hordeUser = await hordeClient.findUser({
-        token: newHordeToken
-      });
+      hordeUser = await hordeClient.findUser(newHordeToken);
     } catch {
       return fail(400, {hordeToken: newHordeToken, invalid: true})
     }
