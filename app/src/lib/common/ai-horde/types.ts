@@ -453,9 +453,32 @@ export interface ExtendedModel {
 	version: string;
 }
 
-export interface ApiError {
-	message: string;
-	errors?: Record<string, string>;
+/**
+ * Represents a request error, providing an error message.
+ *
+ * @interface
+ */
+export interface RequestError {
+  /**
+   * The error message associated with this status code.
+   *
+   * @type {string}
+   */
+  message: string;
+}
+
+/**
+ * Represents a request validation error, providing an error message and a record of validation errors.
+ *
+ * @interface
+ */
+export interface RequestValidationError extends RequestError {
+  /**
+   * The validation errors associated with this request as a record, where keys represent fields or properties and values represent error messages.
+   *
+   * @type {Record<string, string>}
+   */
+  errors?: Record<string, string>;
 }
 
 /**
@@ -1041,4 +1064,32 @@ export interface RequestStatusStable extends RequestStatusCheck {
    * @type {boolean}
    */
   shared?: boolean;
+}
+
+/**
+ * Represents an asynchronous request, providing information about the request's UUID, expected kudos consumption, and additional messages from the horde.
+ *
+ * @interface
+ */
+export interface RequestAsync {
+  /**
+   * The UUID of the request. Use this identifier to retrieve the request status in the future.
+   *
+   * @type {string}
+   */
+  id: string;
+
+  /**
+   * The expected kudos consumption for this request.
+   *
+   * @type {number}
+   */
+  kudos: number;
+
+  /**
+   * Any extra information provided by the horde about this request.
+   *
+   * @type {string}
+   */
+  message: string;
 }
