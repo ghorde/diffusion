@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DiffusionUser {
+  id String @id @unique
+  username String 
+  avatar String @default("/poop.png")
+  banner String @default("https://img.guildedcdn.com/asset/Default/ProfileBannerLarge.png")
+  hordeKey String @default("0000000000")
+  createdAt DateTime @default(now())
+  editedAt DateTime @default(now())
+}
+
+// model GeneratedImage {
+  
+// }

@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  db:
+    container_name: diffusion-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  app:
+    container_name: diffusion-app
+    build:
+      context: ./
+      dockerfile: ./docker/dev/app.dockerfile
+    restart: always
+    volumes:
+      - ./app:/app
+    ports:
+      - 5173:5173
+      - 5555:5555
+    environment:
+      - CARDBOARD_TOKEN=8ce00696-69fa-4c72-b801-4d7b0be68aef
+      - CARDBOARD_SECRET=8b1d7684-8a8e-4b66-9b51-bf55acc84be7
+      - CARDBOARD_URL=https://cardboard.ink/a/diffusion-local
+      - PUBLIC_DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+      - PUBLIC_HORDE_CLIENT_NAME=guilded_diffusion
+      - PUBLIC_HORDE_CLIENT_VERSION=v0.0.1
+      - PUBLIC_HORDE_CLIENT_CONTACT=ham@kodski.com
+    depends_on:
+      - db
