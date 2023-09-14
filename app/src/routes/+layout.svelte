@@ -40,6 +40,9 @@
 		<a href="models" on:click={() => drawerStore.close()}>
 			Models
 		</a>
+		<a href="engine" on:click={() => drawerStore.close()}>
+			Engine
+		</a>
 		{#if $page.data.user}
 		<a href="settings" on:click={() => drawerStore.close()}>
 			Account Settings

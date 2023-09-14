@@ -684,8 +684,10 @@ export interface ModelGenerationInputStable {
 
   /**
    * The number of CLIP language processor layers to skip.
-   *
+   * @default 1
    * @example 1
+   * @minimum 1
+   * @maxiumum 10
    * @type {number}
    */
   clip_skip?: number;
@@ -1092,4 +1094,32 @@ export interface RequestAsync {
    * @type {string}
    */
   message: string;
+}
+
+// Custom types begin here
+/**
+ * Represents the input parameters for generating images.
+ */
+export interface ModelSettingsComplex extends ModelGenerationInputStable {
+  /**
+   * The name of the model
+   */
+  model: string
+  /**
+   * Prompt format for optimal generation
+   */
+  prompt: string
+}
+
+/**
+ * Represents the update intervals for the horde.
+ */
+export interface HordeUpdateIntervals {
+  resourceUpdateInterval: number
+  generationUpdateInterval: number
+}
+
+export interface CacheObject<T> {
+  lastUpdate: number
+  data: T
 }
