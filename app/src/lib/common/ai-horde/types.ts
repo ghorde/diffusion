@@ -593,7 +593,7 @@ export interface ModelGenerationInputStable {
    *
    * @default 7.5
    * @minimum 0
-   * @maximum 100
+   * @maximum 10
    * @multipleOf 0.5
    * @type {number}
    */
